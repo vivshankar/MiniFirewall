@@ -91,11 +91,11 @@ void PrintAll()
       
       printf("%s\t  %s\t\t%d\t", addr_to_string(pRule->m_srcAddr.m_iIP), 
 	     addr_to_string(pRule->m_srcAddr.m_iNetMask),
-	     pRule->m_srcAddr.m_iPort);
+	     htons(pRule->m_srcAddr.m_iPort));
 
       printf("%s\t  %s\t\t%d\t", addr_to_string(pRule->m_destAddr.m_iIP), 
 	     addr_to_string(pRule->m_destAddr.m_iNetMask),
-	     pRule->m_destAddr.m_iPort);
+	     htons(pRule->m_destAddr.m_iPort));
       printf("%s\n", ((pRule->m_bBlock == 0) ? "UNBLOCK" : "BLOCK"));
     }
   } while(pRule != NULL && pRule->m_pNext != NULL);
@@ -119,7 +119,7 @@ int main(int argc, char** argv)
   for (index = 1; index < argc; ++index)
   {
     char* arg = argv[index];
-    printf("%s\n", arg);
+    //printf("%s\n", arg);
     if (strcmp(arg, "--in") == 0) {
       pRule->m_bInput = 1;
       continue;
@@ -153,6 +153,7 @@ int main(int argc, char** argv)
     } else if (strcmp(arg, "--srcport") == 0) {
       char* argval = argv[++index];
       sscanf(argval, "%d", &(pRule->m_srcAddr.m_iPort));
+      pRule->m_srcAddr.m_iPort = ntohs(pRule->m_srcAddr.m_iPort);
       continue;
     } else if (strcmp(arg, "--srcnetmask") == 0) {
       char* argval = argv[++index];
@@ -167,6 +168,7 @@ int main(int argc, char** argv)
     } else if (strcmp(arg, "--destport") == 0) {
       char* argval = argv[++index];
       sscanf(argval, "%d", &(pRule->m_destAddr.m_iPort));
+       pRule->m_destAddr.m_iPort = ntohs(pRule->m_destAddr.m_iPort);
       continue;
     } else if (strcmp(arg, "--destnetmask") == 0) {
       char* argval = argv[++index];

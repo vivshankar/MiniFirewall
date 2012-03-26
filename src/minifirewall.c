@@ -293,7 +293,7 @@ unsigned int hook_prerouting(unsigned int hooknum, struct sk_buff *skb, const st
     dport = udp_header->dest;
   }
 
-  //printk(KERN_INFO "proto = %u, saddr = %u, sport = %u, daddr = %u, dport = %u", proto, saddr, sport, daddr, dport);
+  printk(KERN_INFO "proto = %u, saddr = %u, sport = %u, daddr = %u, dport = %u", proto, saddr, sport, daddr, dport);
   return check_rules(1, proto, saddr, sport, daddr, dport);
 }
 
@@ -352,7 +352,7 @@ unsigned int hook_postrouting(unsigned int hooknum, struct sk_buff *skb, const s
     dport = udp_header->dest;
   }
 
-  //  printk(KERN_INFO "proto = %u, saddr = %u, sport = %u, daddr = %u, dport = %u", proto, saddr, sport, daddr, dport);
+  printk(KERN_INFO "proto = %u, saddr = %u, sport = %u, daddr = %u, dport = %u", proto, saddr, sport, daddr, dport);
 
   return check_rules(0, proto, saddr, sport, daddr, dport);
 }
