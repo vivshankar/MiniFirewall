@@ -6,14 +6,19 @@
 #define E_FILEREAD_NOT_ALLOWED -1
 #define E_FILEWRITE_NOT_ALLOWED -2
 
+// Network Codes
+#define PROTO_TCP 6
+#define PROTO_UDP 17
+#define PROTO_ICMP 1
+
 struct NetAddr
 {
-  // NULL - All IP Address
-  unsigned char m_strIP[20];
-  // NULL - All Net Masks
-  unsigned char m_strNetMask[20];
+  // 0 - All IP Address
+  unsigned int m_iIP;
+  // 0 - All Net Masks
+  unsigned int m_iNetMask;
   // 0 - ALL
-  long m_lPort;
+  unsigned int m_iPort;
 };
 
 struct FirewallRule
@@ -35,9 +40,11 @@ struct FirewallRule
 
 void InitNetAddr(struct NetAddr* pAddr)
 {
-  memset(pAddr->m_strIP, 0, 20);
-  memset(pAddr->m_strNetMask, 0, 20);
-  pAddr->m_lPort = 0;
+  //memset(pAddr->m_strIP, 0, 20);
+  //memset(pAddr->m_strNetMask, 0, 20);
+  pAddr->m_iIP = 0;
+  pAddr->m_iNetMask = 0;
+  pAddr->m_iPort = 0;
 }
 
 void InitFirewallRule(struct FirewallRule* pRule)
